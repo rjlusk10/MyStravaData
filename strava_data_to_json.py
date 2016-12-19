@@ -5,49 +5,29 @@ import urllib.request
 import json
 import polyline
 import os
-os.getcwd()
-# change working directory
-os.chdir('/home/richard/Dropbox/Random_Stats_and_Big_Data/Python_stuff/Strava/Strava')
-os.getcwd()
 import richard_strava as rs
-
 
 from imp import reload
 reload(rs)
 
 # import stravalib
-response=urllib.request.urlopen('https://www.strava.com/api/v3/activities?access_token=91693b839810659899ca2514bfa9c24ab6040617')
+response=urllib.request.urlopen('https://www.strava.com/api/v3/activities?access_token=my_token')
 data=response.read()
 text=data.decode(encoding='utf-8') 
 j_data=json.loads(text)
 
 # get the data type
 type(j_data)
-# list
 
 # get a list of the current valid attributes of an object
 dir(j_data)
 
-
 myrider=rs.Rider()
 myrider.load_from_json_data(j_data)
-
-# ideas for classes in this data
-# ride 
-# a class has methods that define its behavior
-
-
 
 #decode polyline
 poly_tran= polyline.decode(j_data[0]['map']['summary_polyline'])
 poly_tran
-
-
-# Lists are the "workhorse" datatype of Python
-
-# Note: in Python- variables that store arrays always start with an @ character
-
-# list manipulation
 
 # get first listed achievement_count
 j_data[0]['achievement_count']
@@ -95,12 +75,8 @@ for i in range(len(j_data)):
 len(achievment_counts)
 achievment_counts
 
-# use multiple indexes to access lists of lists
-
 # what about lists of dictionaries?
 type(j_data[0])
-
-
 
 #pylab stuff
 poly_tran=array(poly_tran)
@@ -112,7 +88,6 @@ ff=figure(45)
 #use dir to view methods of figure
 
 ff.clf()
-
 
 #                                   color is black dots put on dot                 
 plot(poly_tran[:,0],poly_tran[:,1],'k.-',linewidth=2)
@@ -127,14 +102,3 @@ xlabel('longitude')
 ylabel('latitude')
 
 show()
-
-
-
-
-
-
-#use Stravalib
-#client = stravalib.client.Client()
-#client.access_token='91693b839810659899ca2514bfa9c24ab6040617'
-#get list of athletes
-#athlete=client.get_athlete('14036003')
